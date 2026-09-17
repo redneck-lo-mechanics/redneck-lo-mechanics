@@ -13,6 +13,9 @@ the contact.
 | --- | --- |
 | `index.html` | The whole page. Self-contained: the card artwork is embedded as a base64 JPEG, with invisible tappable `tel:` links positioned over the printed phone numbers, two call buttons, a **Save Contact** button, and a one-line hint shown only on Android. |
 | `contact.vcf` | vCard 3.0 with an embedded photo. CRLF line endings, which iOS requires. |
+| `card.jpg` | The same card artwork as a plain file. Only used by the `og:image` / structured-data links in `<head>`, so link previews and Google have an absolute image URL. The page itself still uses the embedded copy. |
+| `robots.txt` | Lets every crawler in and points at the sitemap. |
+| `sitemap.xml` | One-entry sitemap for the page and its image. Bump `<lastmod>` when the page changes. |
 | `.gitattributes` | Marks `*.vcf` as binary so Git never rewrites those CRLF endings. |
 | `.nojekyll` | Tells GitHub Pages to serve the files as-is instead of running Jekyll. |
 | `LICENSE` | AGPL-3.0. |
@@ -79,6 +82,53 @@ record to the NFC tag itself, which Android's Contacts app opens directly.
 That breaks iPhone tap-to-open (iOS only auto-opens URL records) and the
 17 KB card with its photo does not fit on common tags, so it is not done here.
 
+## Local search (SEO)
+
+The page is the business's only page, so it doubles as the contact page and is
+what should come up for "mechanic" / "mobile mechanic" searches in the service
+area. Everything search engines see lives in `index.html`:
+
+- **`<head>`**: the `<title>`, `description`, `keywords`, `geo.*`, canonical
+  link, Open Graph / Twitter tags, and two JSON-LD blocks (`AutoRepair` +
+  `LocalBusiness` for the business, `ContactPage` for the page).
+- **Visible text**: the `<h1>` / tagline above the card and the service-area
+  `<footer>` under the buttons. Google weighs on-page words more than meta tags,
+  so those must stay visible.
+
+The business has **no street address yet**, so no address appears anywhere. The
+JSON-LD uses `areaServed` instead, which is what Google expects from a
+service-area business. When an address exists, add a `PostalAddress` under
+`address` in the first JSON-LD block and a `geo.position` / `ICBM` meta pair.
+
+### Service area
+
+Current list, in priority order:
+
+1. Traverse City
+2. Grand Traverse County
+3. Garfield Township
+4. Blair Township
+5. Acme Township
+6. East Bay Township
+
+### Adding a township
+
+Add the new place in all four spots so they agree:
+
+1. `<meta name="description">` and `<meta name="keywords">` in `<head>`.
+2. The `og:description` meta tag.
+3. The `areaServed` array in the first JSON-LD block (copy an existing
+   `AdministrativeArea` entry and change the name).
+4. The visible `<footer class="area">` paragraph near the bottom of the page.
+
+Then bump `<lastmod>` in `sitemap.xml`. After a change, paste the live URL into
+Google's Rich Results Test to confirm the structured data still parses.
+
+If the repository is transferred (see below), every absolute URL that starts
+with `https://warstorm548.github.io/redneck-lo-mechanics/` in `index.html`,
+`robots.txt` and `sitemap.xml` must change to the new address, and the site
+should be re-submitted in Google Search Console.
+
 ## Changing a phone number
 
 The numbers live in two files and in the card artwork. All three must agree.
@@ -101,7 +151,9 @@ display form (`(231) 383-3786`). Lines as of this writing:
 
 If the line numbers have drifted, search the file for `383-3786` and
 `12313833786` (and the same pair for the second number). Every hit must be
-updated. Do not change anything else in `index.html`.
+updated, including the `description` meta tag and both JSON-LD blocks in
+`<head>` (there the numbers are written `+1-231-383-3786`). Do not change
+anything else in `index.html`.
 
 ### 2. `contact.vcf`
 

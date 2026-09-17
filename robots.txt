@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://warstorm548.github.io/redneck-lo-mechanics/sitemap.xml
