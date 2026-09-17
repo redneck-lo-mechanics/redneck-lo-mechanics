@@ -6,8 +6,9 @@
 <meta name="theme-color" content="#0d0118">
 <meta name="format-detection" content="telephone=no">
 <!-- SEO / local search metadata.
-     Service area is the list below; add townships here, in the JSON-LD
-     "areaServed" block, and in the visible footer line as the site grows.
+     Service area is the list below; add townships here and in the JSON-LD
+     "areaServed" block as the site grows. It is metadata only and is not
+     shown on the page itself.
      The business has no street address yet, so no address is published
      anywhere on the page. When one exists, add a PostalAddress to the
      JSON-LD and an ICBM/geo.position pair here. -->
@@ -216,13 +217,11 @@
   .help.android,.help.firefox{margin-top:8px;color:#d8c8f5}
   .help b{font-weight:600;color:#fff}
 
-  /* Visible business heading and service-area line. Search engines index
-     these words; keep them in step with the meta tags in <head>. */
+  /* Visible business heading. The service area is deliberately NOT shown on
+     the page; it lives only in the <head> metadata for search engines. */
   .brand{text-align:center;line-height:1.15}
   .brand h1{font-family:"Pirata One",serif;font-weight:400;font-size:1.9rem;color:var(--chrome);letter-spacing:.01em}
   .brand .tag{display:block;font-size:.95rem;font-weight:600;color:var(--neon);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
-  .area{font-size:.98rem;line-height:1.4;color:#b9a3dd;text-align:center;max-width:44ch;margin:0 auto}
-  .area b{font-weight:600;color:#d8c8f5}
 
   @media (prefers-reduced-motion:reduce){.hot::after{animation:none}}
 </style>
@@ -232,7 +231,7 @@
 
   <header class="brand">
     <h1>RedNeck Lo Mechanics</h1>
-    <span class="tag">Mobile Mechanic · Traverse City, MI</span>
+    <span class="tag">Mobile Mechanic</span>
   </header>
 
   <div class="card">
@@ -262,11 +261,6 @@
   </a>
   <p class="help">Adds James &amp; Misty Combs with both numbers to your phone's contacts.</p>
   <p class="help android" hidden>On Android, tapping <b>Save Contact</b> downloads the contact first. Tap <b>Open</b> on the download, then choose Contacts to add it.</p>
-
-  <!-- Service area. Add townships here and in the <head> metadata together. -->
-  <footer class="area">
-    <p>Mobile mechanic serving <b>Traverse City</b> and <b>Grand Traverse County</b>, including <b>Garfield Township</b>, <b>Blair Township</b>, <b>Acme Township</b> and <b>East Bay Township</b>. We come to you. Call or text to book.</p>
-  </footer>
 
 </main>
 <!-- Android notes. Chrome on Android cannot display a .vcf, so tapping Save

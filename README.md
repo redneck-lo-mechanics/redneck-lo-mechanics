@@ -91,9 +91,9 @@ area. Everything search engines see lives in `index.html`:
 - **`<head>`**: the `<title>`, `description`, `keywords`, `geo.*`, canonical
   link, Open Graph / Twitter tags, and two JSON-LD blocks (`AutoRepair` +
   `LocalBusiness` for the business, `ContactPage` for the page).
-- **Visible text**: the `<h1>` / tagline above the card and the service-area
-  `<footer>` under the buttons. Google weighs on-page words more than meta tags,
-  so those must stay visible.
+- **Visible text**: only the `<h1>` and "Mobile Mechanic" tagline above the
+  card. The service area is deliberately **not** shown on the page; it is
+  metadata for search engines only.
 
 The business has **no street address yet**, so no address appears anywhere. The
 JSON-LD uses `areaServed` instead, which is what Google expects from a
@@ -113,13 +113,12 @@ Current list, in priority order:
 
 ### Adding a township
 
-Add the new place in all four spots so they agree:
+Add the new place in all three spots so they agree:
 
 1. `<meta name="description">` and `<meta name="keywords">` in `<head>`.
 2. The `og:description` meta tag.
 3. The `areaServed` array in the first JSON-LD block (copy an existing
    `AdministrativeArea` entry and change the name).
-4. The visible `<footer class="area">` paragraph near the bottom of the page.
 
 Then bump `<lastmod>` in `sitemap.xml`. After a change, paste the live URL into
 Google's Rich Results Test to confirm the structured data still parses.
